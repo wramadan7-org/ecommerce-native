@@ -1,13 +1,48 @@
 import React, { Component } from 'react'
 import {
-  View, Text, StyleSheet, TextInput, TouchableOpacity
+  View, Text, StyleSheet, TextInput, TouchableOpacity, Alert
 } from 'react-native'
 
 // import logoPuma from '../assets/images/puma.jpg'
 
 class Login extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+      alertMsg: ''
+    }
+  }
+
+  doLogin = (e) => {
+    const {email, password, alertMsg} = this.state
+    e.preventDefault()
+    if (email === 'admin' && password === 'admin') {
+      Alert.alert(
+        'Success',
+        'Login success',
+        [
+          {
+            text: 'OK',
+            onPress: () => this.props.navigation.navigate('Home')
+          }
+        ],
+        {cancelable: false}
+      )
+      
+    } else {
+      Alert.alert(
+        'Fail',
+        'Username or password wrong'
+      )
+      console.log('Fail')
+    }
+    // console.log(this.state)
+  }
+
   render () {
-    console.log(this.state.email)
     return (
       <View style={styles.parent}>
         <View style={styles.wrap}>
@@ -17,16 +52,16 @@ class Login extends Component {
           <View style={styles.form}>
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} placeholder='Email' />
+              <TextInput style={styles.input} onChangeText={(email) => this.setState({email})} placeholder='Email' />
             </View>
 
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Password</Text>
-              <TextInput style={styles.input} placeholder='Password' secureTextEntry />
+              <TextInput style={styles.input} onChangeText={(password) => this.setState({password})} placeholder='Password' secureTextEntry />
             </View>
           </View>
-          <Text style={styles.link} onPress={() => this.props.navigation.navigate('Register')}>Forget your password?</Text>
-          <TouchableOpacity style={styles.btn}>
+          <Text style={styles.link} onPress={() => this.props.navigation.navigate('Forgot')}>Forget your password?</Text>
+          <TouchableOpacity style={styles.btn} onPress={this.doLogin}>
             <Text>Login</Text>
           </TouchableOpacity>
         </View>
