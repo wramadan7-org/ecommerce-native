@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 class Profile extends Component {
   render () {
@@ -7,7 +8,11 @@ class Profile extends Component {
       <ScrollView>
 
       <View style={styles.parent}>
-        <Text style={styles.icon}>Icon search</Text>
+        <View style={styles.icon}>
+          <TouchableOpacity>
+            <Icon name='search' size={20} />
+          </TouchableOpacity>
+        </View>
         <Text style={styles.textHeader}>My profile</Text>
         <View style={styles.pp}>
           <View>

@@ -10,7 +10,7 @@ export default class Bag extends Component {
           <View style={styles.parent}>
             <View style={styles.iconSearch}>
               <TouchableOpacity>
-              <Icon name='search' size={20} />
+                <Icon name='search' size={20} />
               </TouchableOpacity>
             </View>
             <Text style={styles.textHeader}>My Bag</Text>
@@ -264,7 +264,7 @@ export default class Bag extends Component {
               <Text>Total amount</Text>
               <Text>112$</Text>
             </View>
-            <TouchableOpacity style={styles.btnFooter}>
+            <TouchableOpacity style={styles.btnFooter} onPress={() => this.props.navigation.navigate('Checkout')}>
               <Text style={styles.checkout}>CHECK OUT</Text>
             </TouchableOpacity>
           </View>

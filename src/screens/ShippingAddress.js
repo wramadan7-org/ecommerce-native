@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { SearchBar } from 'react-native-elements'
 
 export default class ShippingAddress extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      search: ''
+    }
+  }
+
   render () {
+    console.log(this.state.search)
     return (
       <ScrollView style={styles.scrollViewParent}>
-        <View>
-          <Text>Search bar</Text>
+        <View style={styles.viewSearch}>
+          <SearchBar style={styles.searchBar} placeholder='Type here...' lightTheme round onChangeText={(search) => this.setState({ search })} />
         </View>
         <View style={styles.viewShippingAddress}>
           <Text style={styles.textShippingAddress}>Shipping address</Text>
@@ -16,7 +25,7 @@ export default class ShippingAddress extends Component {
             <View style={styles.descript}>
               <View style={styles.viewDirection}>
                 <Text style={styles.pName}>Jane Doe</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ChangeAddress')}>
                   <Text style={styles.change}>Change</Text>
                 </TouchableOpacity>
               </View>
@@ -29,7 +38,7 @@ export default class ShippingAddress extends Component {
             <View style={styles.descript}>
               <View style={styles.viewDirection}>
                 <Text style={styles.pName}>Jane Doe</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ChangeAddress')}>
                   <Text style={styles.change}>Change</Text>
                 </TouchableOpacity>
               </View>
@@ -42,7 +51,7 @@ export default class ShippingAddress extends Component {
             <View style={styles.descript}>
               <View style={styles.viewDirection}>
                 <Text style={styles.pName}>Jane Doe</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ChangeAddress')}>
                   <Text style={styles.change}>Change</Text>
                 </TouchableOpacity>
               </View>
@@ -55,7 +64,7 @@ export default class ShippingAddress extends Component {
             <View style={styles.descript}>
               <View style={styles.viewDirection}>
                 <Text style={styles.pName}>Jane Doe</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ChangeAddress')}>
                   <Text style={styles.change}>Change</Text>
                 </TouchableOpacity>
               </View>
@@ -68,7 +77,7 @@ export default class ShippingAddress extends Component {
             <View style={styles.descript}>
               <View style={styles.viewDirection}>
                 <Text style={styles.pName}>Jane Doe</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ChangeAddress')}>
                   <Text style={styles.change}>Change</Text>
                 </TouchableOpacity>
               </View>
@@ -81,7 +90,7 @@ export default class ShippingAddress extends Component {
             <View style={styles.descript}>
               <View style={styles.viewDirection}>
                 <Text style={styles.pName}>Jane Doe</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ChangeAddress')}>
                   <Text style={styles.change}>Change</Text>
                 </TouchableOpacity>
               </View>
@@ -89,6 +98,12 @@ export default class ShippingAddress extends Component {
               <Text style={styles.pAddress}>Chino Hills, CA 91709, United States</Text>
             </View>
           </TouchableOpacity>
+
+          <View style={styles.viewBtnAdd}>
+            <TouchableOpacity style={styles.addAddress} onPress={() => this.props.navigation.navigate('AddAddress')}>
+              <Text style={styles.textAddNew}>ADD NEW ADDRESS</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     )
@@ -100,9 +115,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 10
   },
-  searchBar: {
-
-  },
+  //   searchBar: {
+  //    //  height: 2,
+  //    //  borderWidth: 2
+  //   },
   viewShippingAddress: {
     marginVertical: 15
   },
@@ -138,5 +154,17 @@ const styles = StyleSheet.create({
   change: {
     color: 'red',
     textAlignVertical: 'top'
+  },
+  viewBtnAdd: {
+    height: 100
+  },
+  addAddress: {
+    // backgroundColor: 'transparant',
+    borderWidth: 1,
+    height: 50,
+    width: '100%',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })

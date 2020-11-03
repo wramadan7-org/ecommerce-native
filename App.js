@@ -15,6 +15,9 @@ import Profile from './src/screens/Profile'
 import Detail from './src/screens/DetailProduct'
 import ShippingAddress from './src/screens/ShippingAddress'
 import MyOrder from './src/screens/MyOrder'
+import Checkout from './src/screens/Checkout'
+import ChangeAddress from './src/screens/ChangeAddress'
+import AddAddress from './src/screens/AddAddress'
 
 // import icon
 import Icon from 'react-native-vector-icons'
@@ -151,6 +154,27 @@ class App extends Component {
             options={{
               // headerRight: () => <Icon name='magnify' size={10} />
               title: 'MyOrder'
+            }}
+          />
+          <Stack.Screen
+            name='Checkout'
+            component={Checkout}
+            options={{
+              title: 'Checkout'
+            }}
+          />
+          <Stack.Screen
+            name='ChangeAddress'
+            component={ChangeAddress}
+            options={{
+              title: 'ChangeAddress'
+            }}
+          />
+          <Stack.Screen
+            name='AddAddress'
+            component={AddAddress}
+            options={{
+              title: 'Add Shipping Address'
             }}
           />
         </Stack.Navigator>
