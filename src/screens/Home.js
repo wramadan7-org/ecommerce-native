@@ -2,20 +2,25 @@ import React, { Component } from 'react'
 import {
   View, Text, StyleSheet, ScrollView, Image, ImageBackground
 } from 'react-native'
-// import { Card, CardItem } from 'native-base'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+// imageBackground
+const img = { uri: 'https://reactjs.org/logo-og.png' }
 
 class Home extends Component {
   render () {
-    const image = { uri: 'https://reactnative.dev/img/tiny_logo.png' }
+    // for bacground
     return (
-      <View style={styles.parent}>
-        <View style={styles.header}>
-          <ImageBackground source={image} style={styles.image} />
-          <Text style={styles.textHeader}>Fashion sale</Text>
-        </View>
+      <ScrollView style={styles.scrollParent}>
+        <View style={styles.parent}>
+          <View style={styles.header}>
+            {/* this background **/}
+            <ImageBackground source={img} style={styles.imgHeader}>
+              <Text style={styles.textHeader}>Fashion sale</Text>
+            </ImageBackground>
+          </View>
 
-        <View style={styles.body}>
-          <ScrollView style={styles.scrollBody}>
+          <View style={styles.body}>
+            {/* <ScrollView style={styles.scrollBody}> */}
             <View style={styles.textGroupHome}>
               <View style={styles.textBody}>
                 <Text style={styles.titleBody}>New</Text>
@@ -26,9 +31,9 @@ class Home extends Component {
                 <Text style={styles.textViewAll}>View all</Text>
               </View>
             </View>
-            <ScrollView style={styles.scrollCard}>
+            <ScrollView style={styles.scrollCard} horizontal>
               <View style={styles.listCard}>
-                <View style={styles.card}>
+                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
                   <View style={styles.imgCard}>
                     <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
                   </View>
@@ -36,8 +41,8 @@ class Home extends Component {
                   <Text style={styles.tipe}>OVS</Text>
                   <Text style={styles.boldCard}>Blouse</Text>
                   <Text style={styles.boldCard}>$ 13</Text>
-                </View>
-                <View style={styles.card}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
                   <View style={styles.imgCard}>
                     <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
                   </View>
@@ -45,7 +50,25 @@ class Home extends Component {
                   <Text style={styles.tipe}>OVS</Text>
                   <Text style={styles.boldCard}>Blouse</Text>
                   <Text style={styles.boldCard}>$ 13</Text>
-                </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
+                  <View style={styles.imgCard}>
+                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
+                  </View>
+                  <Text style={styles.bintang}>Bintang</Text>
+                  <Text style={styles.tipe}>OVS</Text>
+                  <Text style={styles.boldCard}>Blouse</Text>
+                  <Text style={styles.boldCard}>$ 13</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
+                  <View style={styles.imgCard}>
+                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
+                  </View>
+                  <Text style={styles.bintang}>Bintang</Text>
+                  <Text style={styles.tipe}>OVS</Text>
+                  <Text style={styles.boldCard}>Blouse</Text>
+                  <Text style={styles.boldCard}>$ 13</Text>
+                </TouchableOpacity>
               </View>
             </ScrollView>
 
@@ -59,9 +82,9 @@ class Home extends Component {
                 <Text style={styles.textViewAll}>View all</Text>
               </View>
             </View>
-            <ScrollView style={styles.scrollCard}>
+            <ScrollView style={styles.scrollCard} horizontal>
               <View style={styles.listCard}>
-                <View style={styles.card}>
+                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
                   <View style={styles.imgCard}>
                     <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
                   </View>
@@ -69,9 +92,9 @@ class Home extends Component {
                   <Text style={styles.tipe}>OVS</Text>
                   <Text style={styles.boldCard}>Blouse</Text>
                   <Text style={styles.boldCard}>$ 13</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={styles.card}>
+                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
                   <View style={styles.imgCard}>
                     <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
                   </View>
@@ -79,9 +102,9 @@ class Home extends Component {
                   <Text style={styles.tipe}>OVS</Text>
                   <Text style={styles.boldCard}>Blouse</Text>
                   <Text style={styles.boldCard}>$ 13</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={styles.card}>
+                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
                   <View style={styles.imgCard}>
                     <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
                   </View>
@@ -89,38 +112,38 @@ class Home extends Component {
                   <Text style={styles.tipe}>OVS</Text>
                   <Text style={styles.boldCard}>Blouse</Text>
                   <Text style={styles.boldCard}>$ 13</Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </ScrollView>
-          </ScrollView>
+            {/* </ScrollView> */}
+          </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  scrollParent: {
+    flex: 1
+  },
   parent: {
     flex: 1,
-    backgroundColor: 'gray'
+    height: 1000
+    // backgroundColor: 'gray'
   },
   header: {
-    flex: 2
+    flex: 8
   },
   textHeader: {
     fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
     //  backgroundColor: 'yellow',
-    position: 'absolute',
-    marginTop: 150
-  },
-  scrollBody: {
-    //  margin: 2
-    //  backgroundColor: 'green'
+    position: 'absolute'
   },
   body: {
-    flex: 4,
+    // flex: 6,
     backgroundColor: 'white',
     padding: 20
   },
@@ -130,7 +153,7 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   textBody: {
-    flex: 1
+    // flex: 1
     //  backgroundColor: 'blue'
   },
   titleBody: {
@@ -147,13 +170,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   listCard: {
-    //  backgroundColor: 'yellow',
+    // backgroundColor: 'yellow',
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
   card: {
     //  backgroundColor: 'red',
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: 'gray',
     width: 130,
     borderRadius: 10,
@@ -170,9 +193,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   scrollCard: {
-    //  backgroundColor: 'gray',
-    //  borderWidth: 2,
-    height: 250
+    // backgroundColor: 'gray',
   },
   bintang: {
     color: 'gray'
@@ -185,10 +206,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15
   },
-  image: {
+  imgHeader: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center'
+    justifyContent: 'flex-end'
   }
 })
 
