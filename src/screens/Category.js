@@ -1,102 +1,50 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import categoryActions from '../redux/actions/category'
+import { connect } from 'react-redux'
 
 class Category extends Component {
-  state = {
-    data : [
-      {
-        name: 'Wahyu Candra Krisna',
-        phone: '085765665789 '
-      },
-      {
-        name: 'Wahyu Ramadan',
-        phone: '082257022981'
-      },
-      {
-        name: 'Wahyu Aldyansah',
-        phone: '082678115262'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'name',
-        phone: 'xxxxx'
-      },
-      {
-        name: 'Rama',
-        phone: 'xxxxx'
-      }
-    ]
+  constructor (props) {
+    super(props)
+    this.state = {
+      data: [
+        {
+          name: 'Wahyu Ramdan',
+          phone: '082257022981'
+        },
+        {
+          name: 'Wahyu Candra Krisna',
+          phone: '082257022990'
+        }
+      ]
+    }
   }
+
+  componentDidMount () {
+    const { data } = this.state
+    // this.setState({data: this.props.})
+    // console.log(this.props.getCategory().payload)
+  }
+
   render () {
     return (
-      // <ScrollView>
-        <View style={styles.parent}>
-          <TouchableOpacity style={styles.btnAllItems} onPress={() => console.log('Klik')}>
-            <Text style={styles.textViewAll}>VIEW ALL ITEMS</Text>
-          </TouchableOpacity>
-          <Text style={styles.choose}>Choose category</Text>
-          <FlatList
-            style={styles.flatListCategory}
-            data={this.state.data}
-            renderItem={({item, index}) => (
-              <TouchableOpacity style={styles.listCategory}>
-                <Text style={styles.itemTextStyle}>{item.name}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      // </ScrollView>
+    // <ScrollView>
+      <View style={styles.parent}>
+        <TouchableOpacity style={styles.btnAllItems} onPress={() => console.log('Klik')}>
+          <Text style={styles.textViewAll}>VIEW ALL ITEMS</Text>
+        </TouchableOpacity>
+        <Text style={styles.choose}>Choose category</Text>
+        <FlatList
+          style={styles.flatListCategory}
+          data={this.state.data}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity style={styles.listCategory}>
+              <Text style={styles.itemTextStyle}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    // </ScrollView>
     )
   }
 }
@@ -135,4 +83,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Category
+const mapStateToProps = state => ({
+  category: state.category
+})
+
+const mapDispatchToProps = {
+  getCategory: categoryActions.getData
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category)

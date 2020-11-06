@@ -1,20 +1,19 @@
 const initialState = {
+  data: [],
   isLoading: false,
   isError: false,
-  isLogin: false,
-  token: '',
   alertMsg: ''
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'LOGIN_PENDING': {
+    case 'MYPROFILE_PENDING': {
       return {
         ...state,
         isLoading: true
       }
     }
-    case 'LOGIN_REJECTED': {
+    case 'MYPROFILE_REJECTED': {
       return {
         ...state,
         isLoading: false,
@@ -22,24 +21,13 @@ export default (state = initialState, action) => {
         alertMsg: action.payload.data.message
       }
     }
-    case 'LOGIN_FULFILLED': {
+    case 'MYPROFILE_FULFILLED': {
       return {
         ...state,
         isLoading: false,
         isError: false,
-        isLogin: true,
-        token: action.payload.data.token,
+        data: action.payload.data.data,
         alertMsg: action.payload.data.message
-      }
-    }
-    case 'LOGOUT': {
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-        isLogin: false,
-        token: '',
-        alertMsg: 'Logout success'
       }
     }
     default: {

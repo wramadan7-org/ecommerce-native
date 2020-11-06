@@ -5,6 +5,10 @@ import { Text, View, Image, ImageBackground, StyleSheet, TouchableOpacity, Scrol
 const img = { uri: 'https://reactjs.org/logo-og.png' }
 
 export default class DetailProduct extends Component {
+  componentWillReceiveProps() {
+    console.log(route.params)
+  }
+  
   render () {
     return (
       <ScrollView style={styles.scrollParent}>

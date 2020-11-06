@@ -2,20 +2,36 @@ import React, { Component } from 'react'
 import {
   View, Text, StyleSheet, ScrollView, Image, ImageBackground
 } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+
+import { connect } from 'react-redux'
+import productActions from '../redux/actions/products'
+
 // imageBackground
 const img = { uri: 'https://reactjs.org/logo-og.png' }
 
 class Home extends Component {
+  componentDidMount () {
+    console.log('aa', this.props.auth)
+    console.log('produc', this.props.products)
+    console.log('HAHA', this.props.getProducts())
+  }
+
   render () {
-    // for bacground
+    const { isLoading, isError, alertMsg, data } = this.props.products
     return (
       <ScrollView style={styles.scrollParent}>
         <View style={styles.parent}>
           <View style={styles.header}>
             {/* this background **/}
             <ImageBackground source={img} style={styles.imgHeader}>
-              <Text style={styles.textHeader}>Fashion sale</Text>
+              <TouchableOpacity style={styles.btnIcon}>
+                <Icon name='bell' size={30} />
+              </TouchableOpacity>
+              <View style={styles.viewTextHeader}>
+                <Text style={styles.textHeader}>Secret clothes</Text>
+              </View>
             </ImageBackground>
           </View>
 
@@ -33,42 +49,20 @@ class Home extends Component {
             </View>
             <ScrollView style={styles.scrollCard} horizontal>
               <View style={styles.listCard}>
-                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
-                  <View style={styles.imgCard}>
-                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-                  </View>
-                  <Text style={styles.bintang}>Bintang</Text>
-                  <Text style={styles.tipe}>OVS</Text>
-                  <Text style={styles.boldCard}>Blouse</Text>
-                  <Text style={styles.boldCard}>$ 13</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
-                  <View style={styles.imgCard}>
-                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-                  </View>
-                  <Text style={styles.bintang}>Bintang</Text>
-                  <Text style={styles.tipe}>OVS</Text>
-                  <Text style={styles.boldCard}>Blouse</Text>
-                  <Text style={styles.boldCard}>$ 13</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
-                  <View style={styles.imgCard}>
-                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-                  </View>
-                  <Text style={styles.bintang}>Bintang</Text>
-                  <Text style={styles.tipe}>OVS</Text>
-                  <Text style={styles.boldCard}>Blouse</Text>
-                  <Text style={styles.boldCard}>$ 13</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
-                  <View style={styles.imgCard}>
-                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-                  </View>
-                  <Text style={styles.bintang}>Bintang</Text>
-                  <Text style={styles.tipe}>OVS</Text>
-                  <Text style={styles.boldCard}>Blouse</Text>
-                  <Text style={styles.boldCard}>$ 13</Text>
-                </TouchableOpacity>
+                {!isLoading && !isError && data.length > 0 && data.map(o => (
+                  <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail', { id_item: o.id_item })} key={o.id_item}>
+                    <View style={styles.imgCard}>
+                      <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
+                    </View>
+                    {/* <Text>{o.id_item}</Text> */}
+                    <View style={styles.textCard}>
+                      <Text style={styles.bintang}>Bintang</Text>
+                      <Text style={styles.tipe}>{o.category}</Text>
+                      <Text style={styles.boldCard}>{o.name}</Text>
+                      <Text style={styles.boldCard}>Rp {o.price}</Text>
+                    </View>
+                  </TouchableOpacity>
+                ))}
               </View>
             </ScrollView>
 
@@ -84,35 +78,17 @@ class Home extends Component {
             </View>
             <ScrollView style={styles.scrollCard} horizontal>
               <View style={styles.listCard}>
-                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
-                  <View style={styles.imgCard}>
-                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-                  </View>
-                  <Text style={styles.bintang}>Bintang</Text>
-                  <Text style={styles.tipe}>OVS</Text>
-                  <Text style={styles.boldCard}>Blouse</Text>
-                  <Text style={styles.boldCard}>$ 13</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
-                  <View style={styles.imgCard}>
-                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-                  </View>
-                  <Text style={styles.bintang}>Bintang</Text>
-                  <Text style={styles.tipe}>OVS</Text>
-                  <Text style={styles.boldCard}>Blouse</Text>
-                  <Text style={styles.boldCard}>$ 13</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail')}>
-                  <View style={styles.imgCard}>
-                    <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-                  </View>
-                  <Text style={styles.bintang}>Bintang</Text>
-                  <Text style={styles.tipe}>OVS</Text>
-                  <Text style={styles.boldCard}>Blouse</Text>
-                  <Text style={styles.boldCard}>$ 13</Text>
-                </TouchableOpacity>
+                {!isLoading && !isError && data.length > 0 && data.map(o => (
+                  <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Detail', { id_item: o.id_item })} key={o.id_item}>
+                    <View style={styles.imgCard}>
+                      <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
+                    </View>
+                    <Text style={styles.bintang}>Bintang</Text>
+                    <Text style={styles.tipe}>{o.category}</Text>
+                    <Text style={styles.boldCard}>{o.name}</Text>
+                    <Text style={styles.boldCard}>Rp {o.price}</Text>
+                  </TouchableOpacity>
+                ))}
               </View>
             </ScrollView>
             {/* </ScrollView> */}
@@ -128,19 +104,32 @@ const styles = StyleSheet.create({
     flex: 1
   },
   parent: {
-    flex: 1,
-    height: 1000
-    // backgroundColor: 'gray'
+    flex: 1
   },
   header: {
-    flex: 8
+    // flex: 1,
+    height: 400
+  },
+  btnIcon: {
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-end'
+  },
+  viewTextHeader: {
+    // borderWidth: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    flex: 1
   },
   textHeader: {
     fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
     //  backgroundColor: 'yellow',
-    position: 'absolute'
+    // position: 'absolute',
+    paddingBottom: 10
   },
   body: {
     // flex: 6,
@@ -175,25 +164,29 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   card: {
-    //  backgroundColor: 'red',
-    // borderWidth: 1,
-    borderColor: 'gray',
     width: 130,
+    height: 320,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     borderRadius: 10,
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    // marginVertical: 5,
+    backgroundColor: 'white',
+    elevation: 2
   },
   imgCard: {
-    borderRadius: 10,
-    height: 150,
-    borderWidth: 1
+    borderRadius: 20,
+    height: 170
+    // borderWidth: 1
   },
   tinyLogo: {
     width: '100%',
     height: '100%',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderRadius: 20
   },
-  scrollCard: {
-    // backgroundColor: 'gray',
+  textCard: {
+    padding: 5
   },
   bintang: {
     color: 'gray'
@@ -208,9 +201,18 @@ const styles = StyleSheet.create({
   },
   imgHeader: {
     flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'flex-end'
+    resizeMode: 'cover'
+    // justifyContent: 'flex-end'
   }
 })
 
-export default Home
+const mapStateToProps = state => ({
+  auth: state.auth,
+  products: state.products
+})
+
+const mapDispatchToProps = {
+  getProducts: productActions.getProducts
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

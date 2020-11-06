@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import {
-  View, Text, StyleSheet, TextInput, TouchableOpacity, Alert
+  View, Text, StyleSheet, TextInput,
+  TouchableOpacity, Alert
 } from 'react-native'
-
-// import logoPuma from '../assets/images/puma.jpg'
+import {Form} from 'native-base'
+//import actions
+import authActions from '../redux/actions/auth'
+//import connect
+import {connect} from 'react-redux'
 
 class Login extends Component {
 
@@ -17,29 +21,24 @@ class Login extends Component {
   }
 
   doLogin = (e) => {
-    const {email, password, alertMsg} = this.state
     e.preventDefault()
-    if (email === 'admin' && password === 'admin') {
-      Alert.alert(
-        'Success',
-        'Login success',
-        [
-          {
-            text: 'OK',
-            onPress: () => this.props.navigation.navigate('Home')
-          }
-        ],
-        {cancelable: false}
-      )
-      
-    } else {
-      Alert.alert(
-        'Fail',
-        'Username or password wrong'
-      )
-      console.log('Fail')
+    const {email, password, alertMsg} = this.state
+    const data = {
+      email,password
     }
-    // console.log(this.state)
+    this.props.login(data)
+  }
+
+  showAlert= () => {
+    const {alertMsg} = this.props.auth
+    if (alertMsg !== this.state.alertMsg) {
+      this.setState({alertMsg})
+      Alert.alert(alertMsg)
+    }
+  }
+
+  componentDidUpdate() {
+    this.showAlert()
   }
 
   render () {
@@ -47,23 +46,26 @@ class Login extends Component {
       <View style={styles.parent}>
         <View style={styles.wrap}>
           <View style={styles.header}>
-            {/* <Image style={{ width: 10, height: 50 }} source={logoPuma} /> */}
+            <Text style={styles.textHeader}>Login</Text>
           </View>
+          <Form>
           <View style={styles.form}>
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} onChangeText={(email) => this.setState({email})} placeholder='Email' />
+              <TextInput style={styles.input} onChangeText={email => this.setState({email})} placeholder='Email' />
             </View>
 
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Password</Text>
-              <TextInput style={styles.input} onChangeText={(password) => this.setState({password})} placeholder='Password' secureTextEntry />
+              <TextInput style={styles.input} onChangeText={password => this.setState({password})} placeholder='Password' secureTextEntry />
             </View>
           </View>
           <Text style={styles.link} onPress={() => this.props.navigation.navigate('Forgot')}>Forget your password?</Text>
           <TouchableOpacity style={styles.btn} onPress={this.doLogin}>
-            <Text>Login</Text>
+            <Text style={styles.textBtn}>Login</Text>
           </TouchableOpacity>
+
+          </Form>
         </View>
       </View>
     )
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
   parent: {
     flex: 1,
     backgroundColor: 'ghostwhite',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center'
   },
   wrap: {
@@ -82,13 +84,21 @@ const styles = StyleSheet.create({
     width: '80%'
   },
   header: {
-    alignItems: 'center'
+    // alignItems: 'center',
+    height: 100,
+  },
+  textHeader: {
+    fontSize: 50,
+    fontWeight: 'bold'
   },
   inputGroup: {
     marginVertical: 10,
+    height: 80,
     padding: 5,
     backgroundColor: 'white',
-    borderRadius: 5
+    borderRadius: 5,
+    justifyContent: 'center',
+    elevation: 3
   },
   label: {
     color: 'gray',
@@ -104,13 +114,28 @@ const styles = StyleSheet.create({
     textAlign: 'right'
   },
   btn: {
-    backgroundColor: 'gray',
-    padding: 10,
+    backgroundColor: '#e0e0e0',
+    height: 45,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,
-    marginVertical: 20
-  }
+    marginVertical: 20,
+    elevation: 5
+  },
+  textBtn: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#616161'
+  },
 })
 
-export default Login
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+const mapDispatchToProps = {
+  login: authActions.doLogin 
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

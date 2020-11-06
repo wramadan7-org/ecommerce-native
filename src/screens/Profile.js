@@ -1,8 +1,33 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Main from './Main'
+// import actions
+import {doLogin, logout} from '../redux/actions/auth'
+import {myProfile} from '../redux/actions/profile'
+// import connect
+import {connect} from 'react-redux'
 
 class Profile extends Component {
+
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     logout: ''
+  //   }
+  // }
+
+  // logout = () => {
+  //   this.props.logout()
+  // }
+
+  // componentDidMount() {
+    // if (this.props.auth.isLogin === false) {
+    //   this.props.navigation.navigate(<Main />)
+    // }
+  // }
+  
+
   render () {
     return (
       <ScrollView>
@@ -49,6 +74,11 @@ class Profile extends Component {
             </View>
             <View>
               <Text> > </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn} >
+            <View>
+              <Text>Logout</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -103,5 +133,14 @@ const styles = StyleSheet.create({
     marginVertical: 10
   }
 })
+
+// const mapStateToProps = state => ({
+//   auth: state.auth,
+//   profile: state.profile
+// })
+
+// const mapDispatchToProps = {
+//   doLogin, logout, myProfile
+// }
 
 export default Profile
