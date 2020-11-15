@@ -3,6 +3,7 @@ import { View, Text, Alert } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { connect } from 'react-redux'
+import SplashScreen from 'react-native-splash-screen'
 
 // screens
 import Landpage from './Landpage'
@@ -25,6 +26,7 @@ const Stack = createStackNavigator()
 class Main extends Component {
   componentDidMount () {
     console.log('main', this.props.auth)
+    SplashScreen.hide()
   }
 
   render () {

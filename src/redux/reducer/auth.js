@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: true,
-        alertMsg: action.payload.data.message
+        alertMsg: 'REJECTED'
       }
     }
     case 'LOGIN_FULFILLED': {
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         isError: false,
         isLogin: true,
         token: action.payload.data.token,
-        alertMsg: action.payload.data.message
+        alertMsg: 'SUCCESS'
       }
     }
     case 'LOGOUT': {
