@@ -66,7 +66,7 @@ class Register extends Component {
             </View>
             <Text style={styles.link} onPress={() => this.props.navigation.navigate('Login')} component={Login}>Already have an account? </Text>
             <TouchableOpacity style={styles.btn} onPress={this.doRegister}>
-              <Text style={styles.textBtn}>Sign up</Text>
+              <Text style={styles.textBtn}>SIGN UP</Text>
             </TouchableOpacity>
           </Form>
         </View>
@@ -100,25 +100,28 @@ const styles = StyleSheet.create({
     height: 80,
     padding: 5,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     borderRadius: 5,
-    elevation: 3
+    // elevation: 3,
+    borderBottomWidth: 1,
+    borderBottomColor: 'blue'
   },
   label: {
     color: 'gray',
-    fontSize: 10
+    fontSize: 13
   },
   input: {
     padding: 2,
     marginVertical: 3,
-    fontSize: 15
+    fontSize: 16,
+    fontFamily: 'times news roman'
   },
   link: {
     color: 'black',
     textAlign: 'right'
   },
   btn: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: 'lightblue',
     height: 45,
     alignItems: 'center',
     justifyContent: 'center',
@@ -129,7 +132,7 @@ const styles = StyleSheet.create({
   textBtn: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#616161'
+    color: 'white'
   }
 })
 

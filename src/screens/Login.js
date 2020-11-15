@@ -62,7 +62,7 @@ class Login extends Component {
           </View>
           <Text style={styles.link} onPress={() => this.props.navigation.navigate('Forgot')}>Forget your password?</Text>
           <TouchableOpacity style={styles.btn} onPress={this.doLogin}>
-            <Text style={styles.textBtn}>Login</Text>
+            <Text style={styles.textBtn}>LOGIN</Text>
           </TouchableOpacity>
 
           </Form>
@@ -95,37 +95,39 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     height: 80,
     padding: 5,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    borderBottomWidth: 1,
     borderRadius: 5,
     justifyContent: 'center',
-    elevation: 3
+    borderBottomColor: 'blue'
+    // elevation: 3
   },
   label: {
     color: 'gray',
-    fontSize: 10
+    fontSize: 13
   },
   input: {
     padding: 2,
     marginVertical: 3,
-    fontSize: 15
+    fontSize: 16
   },
   link: {
     color: 'black',
     textAlign: 'right'
   },
   btn: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: 'lightblue',
     height: 45,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,
     marginVertical: 20,
-    elevation: 5
+    elevation: 3
   },
   textBtn: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#616161'
+    color: 'white'
   },
 })
 
