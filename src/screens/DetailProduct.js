@@ -1,15 +1,20 @@
-import React, { Component } from 'react'
-import { Text, View, Image, ImageBackground, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import React, {Component} from 'react';
+import {
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // imageBackground
-const img = { uri: 'https://reactjs.org/logo-og.png' }
+const img = {uri: 'https://reactjs.org/logo-og.png'};
 
 export default class DetailProduct extends Component {
-  componentWillReceiveProps() {
-    console.log(route.params)
-  }
-  
-  render () {
+  render() {
     return (
       <ScrollView style={styles.scrollParent}>
         {/* container */}
@@ -31,7 +36,7 @@ export default class DetailProduct extends Component {
               </View>
               <View style={styles.fav}>
                 <TouchableOpacity style={styles.btnFav}>
-                  <Text>O</Text>
+                  <Icon name="heart-o" size={20} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -47,9 +52,8 @@ export default class DetailProduct extends Component {
             </View>
             <View style={styles.descriptProduct}>
               <Text>
-                Short dress in soft cotton jersey with
-                decorative buttons down the front and wide,
-                frill-trimmed
+                Short dress in soft cotton jersey with decorative buttons down
+                the front and wide, frill-trimmed
               </Text>
             </View>
             <View style={styles.groupBtnInfo}>
@@ -67,82 +71,82 @@ export default class DetailProduct extends Component {
               <Text style={styles.alsoLike}>You can also like this</Text>
               <Text style={styles.smallText}>12 items</Text>
             </View>
-              <ScrollView style={styles.scrollListProduct} horizontal>
-                <TouchableOpacity style={styles.card}>
-                  <View>
-                    <Image source={img} style={styles.imgListProduct} />
+            <ScrollView style={styles.scrollListProduct} horizontal>
+              <TouchableOpacity style={styles.card}>
+                <View>
+                  <Image source={img} style={styles.imgListProduct} />
+                </View>
+                <View>
+                  <Text>Bintang</Text>
+                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
+                  <Text style={styles.themeProduct}>Evening Dress</Text>
+                  <View style={styles.prices}>
+                    <Text style={styles.discounded}>15$</Text>
+                    <Text style={styles.discount}>12$</Text>
                   </View>
-                  <View>
-                    <Text>Bintang</Text>
-                    <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                    <Text style={styles.themeProduct}>Evening Dress</Text>
-                    <View style={styles.prices}>
-                      <Text style={styles.discounded}>15$</Text>
-                      <Text style={styles.discount}>12$</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
 
-                <TouchableOpacity style={styles.card}>
-                  <View>
-                    <Image source={img} style={styles.imgListProduct} />
+              <TouchableOpacity style={styles.card}>
+                <View>
+                  <Image source={img} style={styles.imgListProduct} />
+                </View>
+                <View>
+                  <Text>Bintang</Text>
+                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
+                  <Text style={styles.themeProduct}>Evening Dress</Text>
+                  <View style={styles.prices}>
+                    <Text style={styles.discounded}>15$</Text>
+                    <Text style={styles.discount}>12$</Text>
                   </View>
-                  <View>
-                    <Text>Bintang</Text>
-                    <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                    <Text style={styles.themeProduct}>Evening Dress</Text>
-                    <View style={styles.prices}>
-                      <Text style={styles.discounded}>15$</Text>
-                      <Text style={styles.discount}>12$</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
 
-                <TouchableOpacity style={styles.card}>
-                  <View>
-                    <Image source={img} style={styles.imgListProduct} />
+              <TouchableOpacity style={styles.card}>
+                <View>
+                  <Image source={img} style={styles.imgListProduct} />
+                </View>
+                <View>
+                  <Text>Bintang</Text>
+                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
+                  <Text style={styles.themeProduct}>Evening Dress</Text>
+                  <View style={styles.prices}>
+                    <Text style={styles.discounded}>15$</Text>
+                    <Text style={styles.discount}>12$</Text>
                   </View>
-                  <View>
-                    <Text>Bintang</Text>
-                    <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                    <Text style={styles.themeProduct}>Evening Dress</Text>
-                    <View style={styles.prices}>
-                      <Text style={styles.discounded}>15$</Text>
-                      <Text style={styles.discount}>12$</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
 
-                <TouchableOpacity style={styles.card}>
-                  <View>
-                    <Image source={img} style={styles.imgListProduct} />
+              <TouchableOpacity style={styles.card}>
+                <View>
+                  <Image source={img} style={styles.imgListProduct} />
+                </View>
+                <View>
+                  <Text>Bintang</Text>
+                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
+                  <Text style={styles.themeProduct}>Evening Dress</Text>
+                  <View style={styles.prices}>
+                    <Text style={styles.discounded}>15$</Text>
+                    <Text style={styles.discount}>12$</Text>
                   </View>
-                  <View>
-                    <Text>Bintang</Text>
-                    <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                    <Text style={styles.themeProduct}>Evening Dress</Text>
-                    <View style={styles.prices}>
-                      <Text style={styles.discounded}>15$</Text>
-                      <Text style={styles.discount}>12$</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
 
-                <TouchableOpacity style={styles.card}>
-                  <View>
-                    <Image source={img} style={styles.imgListProduct} />
+              <TouchableOpacity style={styles.card}>
+                <View>
+                  <Image source={img} style={styles.imgListProduct} />
+                </View>
+                <View>
+                  <Text>Bintang</Text>
+                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
+                  <Text style={styles.themeProduct}>Evening Dress</Text>
+                  <View style={styles.prices}>
+                    <Text style={styles.discounded}>15$</Text>
+                    <Text style={styles.discount}>12$</Text>
                   </View>
-                  <View>
-                    <Text>Bintang</Text>
-                    <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                    <Text style={styles.themeProduct}>Evening Dress</Text>
-                    <View style={styles.prices}>
-                      <Text style={styles.discounded}>15$</Text>
-                      <Text style={styles.discount}>12$</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </ScrollView>
+                </View>
+              </TouchableOpacity>
+            </ScrollView>
             <View style={styles.footer}>
               <TouchableOpacity style={styles.btnFooter}>
                 <Text style={styles.addCart}>ADD TO CART</Text>
@@ -151,167 +155,166 @@ export default class DetailProduct extends Component {
           </View>
         </View>
       </ScrollView>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  scrollParent: {
-    flex: 1
-    // backgroundColor: 'yellow'
+  addCart: {
+    color: 'white',
   },
-  parent: {
-    // backgroundColor: 'red',
-    flex: 1,
-    height: 1000
-  },
-  header: {
-    flex: 8
-  },
-  imgHeader: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center'
+  alsoLike: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   body: {
     // flex: 12,
-    marginHorizontal: 10
+    marginHorizontal: 10,
     // backgroundColor: 'blue'
+  },
+  btnFav: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 100,
+    height: 50,
+    justifyContent: 'center',
+    width: 50,
+  },
+  btnFooter: {
+    alignItems: 'center',
+    backgroundColor: 'gray',
+    borderRadius: 100,
+    height: 50,
+    justifyContent: 'center',
+    marginHorizontal: 10,
+  },
+  btnInfo: {
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    height: 30,
+    justifyContent: 'space-between',
+  },
+  btnOptions: {
+    alignItems: 'center',
+    backgroundColor: 'ghostwhite',
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 50,
+    justifyContent: 'center',
+    width: 140,
+  },
+  card: {
+    // borderWidth: 1,
+    width: 120,
+    height: 200,
+    marginHorizontal: 10,
   },
   choosing: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10
+    marginVertical: 10,
     // borderWidth: 1
   },
-  fav: {
-    flex: 2,
-    alignItems: 'flex-end',
-    justifyContent: 'center'
+  createdProduct: {
+    color: 'gray',
+    fontSize: 12,
   },
-  btnFav: {
-    backgroundColor: 'blue',
-    borderRadius: 100,
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
+  descriptProduct: {
+    marginVertical: 10,
+  },
+  discounded: {
+    color: 'gray',
+    textDecorationLine: 'line-through',
+    // fontSize:
+  },
+  discount: {
+    color: 'red',
+  },
+  fav: {
+    alignItems: 'flex-end',
+    flex: 2,
+    justifyContent: 'center',
+  },
+  footer: {
+    backgroundColor: 'ghostwhite',
+    height: 150,
+    justifyContent: 'center',
+  },
+  groupBtnInfo: {
+    marginVertical: 10,
+  },
+  header: {
+    flex: 8,
+  },
+  imgHeader: {
+    flex: 1,
+    justifyContent: 'center',
+    resizeMode: 'cover',
+  },
+  imgListProduct: {
+    borderRadius: 10,
+    height: 150,
+    width: 120,
+  },
+  listProduct: {
+    borderWidth: 1,
+    height: 300,
+  },
+  merkProduct: {
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  modelProduct: {
+    color: 'gray',
+    fontSize: 12,
   },
   options: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     // borderWidth: 1,
     flex: 9,
-    alignItems: 'center'
-  },
-  btnOptions: {
-    backgroundColor: 'ghostwhite',
-    width: 140,
-    height: 50,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderRadius: 5
-
   },
-  subtitleProduct: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 10
-  },
-  merkProduct: {
-    fontWeight: 'bold',
-    fontSize: 25
-  },
-  modelProduct: {
-    color: 'gray',
-    fontSize: 12
+  parent: {
+    // backgroundColor: 'red',
+    flex: 1,
+    height: 1000,
   },
   priceProduct: {
+    fontSize: 25,
     fontWeight: 'bold',
-    fontSize: 25
   },
-  descriptProduct: {
-    marginVertical: 10
-  },
-  groupBtnInfo: {
-    marginVertical: 10
-  },
-  btnInfo: {
-    borderBottomWidth: 1,
-    height: 30,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
-  listProduct: {
-    height: 300,
-    borderWidth: 1
+  prices: {
+    flexDirection: 'row',
   },
   scrollListProduct: {
     marginHorizontal: 10,
     // borderWidth: 1,
-    height: 300
+    height: 300,
   },
-  textList: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 10,
-    alignItems: 'center',
-    marginVertical: 10
-  },
-  alsoLike: {
-    fontWeight: 'bold',
-    fontSize: 20
+  scrollParent: {
+    flex: 1,
+    // backgroundColor: 'yellow'
   },
   smallText: {
     color: 'gray',
-    fontSize: 12
+    fontSize: 12,
   },
-  card: {
-    // borderWidth: 1,
-    width: 120,
-    height: 200,
-    marginHorizontal: 10
+  subtitleProduct: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
   },
-  imgListProduct: {
-    width: 120,
-    height: 150,
-    borderRadius: 10
-  },
-  createdProduct: {
-    color: 'gray',
-    fontSize: 12
+  textList: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
   themeProduct: {
+    fontSize: 16,
     fontWeight: 'bold',
-    fontSize: 16
   },
-  prices: {
-    flexDirection: 'row'
-  },
-  discounded: {
-    textDecorationLine: 'line-through',
-    color: 'gray'
-    // fontSize: 
-  },
-  discount: {
-    color: 'red'
-  },
-  footer: {
-    backgroundColor: 'ghostwhite',
-    height: 150,
-    justifyContent: 'center'
-  },
-  btnFooter: {
-    backgroundColor: 'gray',
-    borderRadius: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    marginHorizontal: 10
-  },
-  addCart: {
-    color: 'white'
-  }
-})
+});

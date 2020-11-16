@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import {
   Text,
   View,
@@ -8,34 +8,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Main from './Main';
-// import actions
-import {doLogin, logout} from '../redux/actions/auth';
-import {myProfile} from '../redux/actions/profile';
+
 // import connect
 import {connect} from 'react-redux';
 
+// import actions
+import {doLogin, logout} from '../redux/actions/auth';
+import {myProfile} from '../redux/actions/profile';
+
 class Profile extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     logout: ''
-  //   }
-  // }
-
-  // logout = () => {
-  //   this.props.logout()
-  // }
-
-  // componentDidMount() {
-  // if (this.props.auth.isLogin === false) {
-  //   this.props.navigation.navigate(<Main />)
-  // }
-  // }
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.scrollParent}>
         <View style={styles.parent}>
           <View style={styles.icon}>
             <TouchableOpacity>
@@ -64,7 +49,7 @@ class Profile extends Component {
                 <Text>Already have 12 orders</Text>
               </View>
               <View>
-                <Text> > </Text>
+                <Icon name='chevron-right' />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -75,7 +60,7 @@ class Profile extends Component {
                 <Text>3 address</Text>
               </View>
               <View>
-                <Text> > </Text>
+                <Icon name='chevron-right' />
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btn}>
@@ -84,10 +69,10 @@ class Profile extends Component {
                 <Text>Notifications, password</Text>
               </View>
               <View>
-                <Text> > </Text>
+                <Icon name='chevron-right' />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} >
               <View>
                 <Text>Logout</Text>
               </View>
@@ -95,13 +80,20 @@ class Profile extends Component {
           </View>
         </View>
       </ScrollView>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
+  scrollParent: {
+    // height: 1,
+    // borderWidth: 2,
+    // borderColor: 'red'
+    // borderWidth: 10
+  },
   parent: {
     padding: 5,
+    flex: 1
   },
   textHeader: {
     fontSize: 35,
@@ -114,7 +106,7 @@ const styles = StyleSheet.create({
   },
   pp: {
     flexDirection: 'row',
-    marginVertical: 5,
+    marginVertical: 15,
     alignItems: 'center',
   },
   textGroupPP: {
@@ -138,11 +130,7 @@ const styles = StyleSheet.create({
   emailProfile: {
     color: 'gray',
     fontSize: 12,
-  },
-  icon: {
-    alignSelf: 'flex-end',
-    marginVertical: 10,
-  },
+  }
 });
 
 // const mapStateToProps = state => ({

@@ -32,7 +32,7 @@ class Main extends Component {
   render () {
     return (
       <NavigationContainer>
-        {!this.props.auth.token.length ? (
+        {!this.props.auth.token.length > 0 ? (
           <Stack.Navigator>
             <Stack.Screen
               name='Landpage'

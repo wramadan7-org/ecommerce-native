@@ -14,12 +14,58 @@ const Tab = createBottomTabNavigator()
 class TabNavigation extends Component {
   render () {
     return (
-      <Tab.Navigator>
-        <Tab.Screen name='Home' component={Home} />
-        <Tab.Screen name='Shop' component={Shop} />
-        <Tab.Screen name='Bag' component={Bag} />
-        <Tab.Screen name='Favorites' component={Favorites} />
-        <Tab.Screen name='Profile' component={Profile} />
+      <Tab.Navigator tabBarOptions={{style:{backgroundColor: 'lightblue'}}}>
+        <Tab.Screen 
+          name='Home' 
+          component={Home}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({color, size}) => (
+              <Icon name='home' size={30} />
+            )
+          }}
+        />
+        <Tab.Screen 
+          name='Shop' 
+          component={Shop}
+          options={{
+            tabBarLabel: 'Shop',
+            tabBarIcon: ({color, size}) => (
+              <Icon  name='shopping-cart' size={30} />
+            )
+          }}
+        />
+        <Tab.Screen 
+          name='Bag' 
+          component={Bag}
+          options={{
+            tabBarLabel: 'Bag',
+            tabBarIcon: ({color, size}) => (
+              <Icon name='shopping-bag' size={30} />
+            )
+          }}
+        />
+        <Tab.Screen 
+          name='Favorites' 
+          component={Favorites}
+          options={{
+            tabBarLabel: 'Favorites',
+            tabBarIcon: ({color, size}) => (
+              <Icon name='heart' size={30} />
+            )
+          }}
+        />
+        <Tab.Screen 
+          name='Profile' 
+          component={Profile}
+          options={{
+            tabBarLabel: 'Profile',
+            tabBarIcon: ({color, size}) => (
+              <Icon name='user' size={30}  />
+            ),
+            
+          }}
+        />
 
       </Tab.Navigator>
     )
