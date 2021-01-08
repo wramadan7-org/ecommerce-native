@@ -6,9 +6,12 @@ import {
   ScrollView,
   Image,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {APP_URL} from '@env';
+import headerHome from '../assets/images/headerHome.png';
 
 import {connect} from 'react-redux';
 import productActions from '../redux/actions/products';
@@ -17,6 +20,13 @@ import productActions from '../redux/actions/products';
 const img = {uri: 'https://reactjs.org/logo-og.png'};
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isHorizontal: false,
+    };
+  }
+
   componentDidMount() {
     this.props.getProducts();
     this.props.auth;
@@ -29,9 +39,9 @@ class Home extends Component {
         <View style={styles.parent}>
           <View style={styles.header}>
             {/* this background **/}
-            <ImageBackground source={img} style={styles.imgHeader}>
+            <ImageBackground source={headerHome} style={styles.imgHeader}>
               <TouchableOpacity style={styles.btnIcon}>
-                <Icon name="bell-o" size={30} />
+                <Icon name="bell-o" size={30} color="white" />
               </TouchableOpacity>
               <View style={styles.viewTextHeader}>
                 <Text style={styles.textHeader}>Secret clothes</Text>
@@ -53,12 +63,24 @@ class Home extends Component {
                 <Text style={styles.textViewAll}>View all</Text>
               </View>
             </View>
-            <ScrollView style={styles.scrollCard} horizontal>
-              <View style={styles.listCard}>
-                {!isLoading &&
-                  !isError &&
-                  data.length > 0 &&
-                  data.map((o) => (
+            <ScrollView
+              style={styles.scrollCard}
+              horizontal={isLoading && !isError ? false : true}>
+              {/* Loading */}
+              {isLoading && !isError && (
+                <ActivityIndicator
+                  size="large"
+                  color="blue"
+                  style={styles.loading}
+                />
+              )}
+
+              {/* Success */}
+              {!isLoading &&
+                !isError &&
+                data.length > 0 &&
+                data.map((o) => (
+                  <View style={styles.listCard}>
                     <TouchableOpacity
                       style={styles.card}
                       onPress={() =>
@@ -70,9 +92,14 @@ class Home extends Component {
                       <View style={styles.imgCard}>
                         <Image
                           style={styles.tinyLogo}
-                          source={{
-                            uri: 'https://reactnative.dev/img/tiny_logo.png',
-                          }}
+                          source={
+                            o.picture?.length > 0
+                              ? {uri: `${APP_URL}${o.picture}`}
+                              : {
+                                  uri:
+                                    'https://reactnative.dev/img/tiny_logo.png',
+                                }
+                          }
                         />
                       </View>
                       {/* <Text>{o.id_item}</Text> */}
@@ -88,8 +115,8 @@ class Home extends Component {
                         <Text style={styles.boldCard}>Rp {o.price}</Text>
                       </View>
                     </TouchableOpacity>
-                  ))}
-              </View>
+                  </View>
+                ))}
             </ScrollView>
 
             <View style={styles.textGroupHome}>
@@ -104,8 +131,20 @@ class Home extends Component {
                 <Text style={styles.textViewAll}>View all</Text>
               </View>
             </View>
-            <ScrollView style={styles.scrollCard} horizontal>
+            <ScrollView
+              style={styles.scrollCard}
+              horizontal={isLoading && !isError ? false : true}>
               <View style={styles.listCard}>
+                {/* Loading */}
+                {isLoading && !isError && (
+                  <ActivityIndicator
+                    size="large"
+                    color="blue"
+                    style={styles.loading}
+                  />
+                )}
+
+                {/* Success */}
                 {!isLoading &&
                   !isError &&
                   data.length > 0 &&
@@ -121,9 +160,14 @@ class Home extends Component {
                       <View style={styles.imgCard}>
                         <Image
                           style={styles.tinyLogo}
-                          source={{
-                            uri: 'https://reactnative.dev/img/tiny_logo.png',
-                          }}
+                          source={
+                            o.picture?.length > 0
+                              ? {uri: `${APP_URL}${o.picture}`}
+                              : {
+                                  uri:
+                                    'https://reactnative.dev/img/tiny_logo.png',
+                                }
+                          }
                         />
                       </View>
                       <View style={styles.textCard}>
@@ -179,7 +223,7 @@ const styles = StyleSheet.create({
   },
   header: {
     // flex: 1,
-    height: 400,
+    height: 196,
   },
   imgCard: {
     borderRadius: 20,
@@ -231,8 +275,7 @@ const styles = StyleSheet.create({
   },
   tinyLogo: {
     alignSelf: 'center',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderRadius: 10,
     height: '100%',
     width: '100%',
   },
@@ -257,6 +300,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 1,
     justifyContent: 'flex-end',
+  },
+  loading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 300,
   },
 });
 

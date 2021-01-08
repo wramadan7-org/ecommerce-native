@@ -1,17 +1,17 @@
-import { default as axios } from 'axios'
+import {default as axios} from 'axios';
 // import env
-import { APP_URL } from '@env'
-console.log('url', APP_URL)
+import {APP_URL} from '@env';
+console.log('url', APP_URL);
 
 const http = (token = null) => {
-  const headers = {}
+  const headers = {};
   if (token) {
-    headers.Authorization = `Bearer ${token}`
+    headers.Authorization = `Bearer ${token}`;
   }
   return axios.create({
     baseURL: APP_URL,
-    headers
-  })
-}
+    headers,
+  });
+};
 
-export default http
+export default http;

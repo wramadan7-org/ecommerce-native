@@ -1,22 +1,20 @@
-import React, { Component, createRef } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import Animated from 'react-native-reanimated'
-import BottomSheet from 'reanimated-bottom-sheet'
+import React, {Component, createRef} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 // import image
-import logo from '../assets/images/logo.png'
+import logo from '../assets/logo/logo.png';
 class Landpage extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      snapPoints: [0, 0, 0]
-    }
+      snapPoints: [0, 0, 0],
+    };
   }
 
   renderContent = () => (
-    <View
-      style={styles.viewBottomSheet}
-    >
+    <View style={styles.viewBottomSheet}>
       <View style={styles.viewTitleBottomSheet}>
         <Text style={styles.textTitleBottomSheet}>Select size</Text>
       </View>
@@ -42,38 +40,46 @@ class Landpage extends Component {
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 
-  render () {
-    const sheetRef = createRef(null)
+  render() {
+    const sheetRef = createRef(null);
     return (
       <View style={styles.parent}>
-
         <View style={styles.viewLogo}>
           {/* <Text style={styles.logo}>R</Text> */}
           <Image source={logo} style={styles.logo} />
         </View>
 
-        <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('Login')}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => this.props.navigation.navigate('Login')}>
           <Text style={styles.textBtn}>LOGIN</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('Register')}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => this.props.navigation.navigate('Register')}>
           <Text style={styles.textBtn}>REGISTER</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btn} onPress={() => {sheetRef.current.snapTo(null), this.setState({snapPoints: [500, 500, 0]})}}>
+        {/* <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            sheetRef.current.snapTo(null),
+              this.setState({snapPoints: [500, 500, 0]});
+          }}>
           <Text style={styles.textBtn}>Bottom Sheet</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <BottomSheet
-              ref={sheetRef}
-              snapPoints={this.state.snapPoints}
-              borderRadius={10}
-              renderContent={this.renderContent}
-              enabledContentTapInteraction={false}
-          />
+          ref={sheetRef}
+          snapPoints={this.state.snapPoints}
+          borderRadius={10}
+          renderContent={this.renderContent}
+          enabledContentTapInteraction={false}
+        />
       </View>
-    )
+    );
   }
 }
 
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'ghostwhite',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   viewLogo: {
     justifyContent: 'center',
@@ -91,17 +97,17 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 100,
-    marginVertical: 50
+    marginVertical: 50,
   },
   logo: {
     // fontSize: 145,
     // fontWeight: 'bold',
     // color: 'white'
     width: 160,
-    height: 160
+    height: 160,
   },
   btn: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#DB3022',
     width: '70%',
     height: 45,
     margin: 5,
@@ -114,23 +120,22 @@ const styles = StyleSheet.create({
   textBtn: {
     fontWeight: 'bold',
     fontSize: 20,
-    color: 'white'
+    color: 'white',
   },
   viewBottomSheet: {
     backgroundColor: 'gray',
     padding: 15,
     height: 450,
-    
   },
   viewTitleBottomSheet: {
     margin: 20,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   textTitleBottomSheet: {
     fontFamily: 'times news roman',
     fontWeight: '800',
-    fontSize: 17
+    fontSize: 17,
   },
   viewBtnBottomSheet: {
     flexDirection: 'row',
@@ -145,14 +150,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     // marginHorizontal: 10,
-    margin: 5
+    margin: 5,
   },
   textBtnBottomSheet: {
     color: 'black',
     fontFamily: 'times news roman',
     fontSize: 15,
-    fontWeight: '600'
-  }
-})
+    fontWeight: '600',
+  },
+});
 
-export default Landpage
+export default Landpage;

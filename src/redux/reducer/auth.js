@@ -3,34 +3,34 @@ const initialState = {
   isError: false,
   isLogin: false,
   token: '',
-  alertMsg: ''
-}
+  alertMsg: '',
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN_PENDING': {
       return {
         ...state,
-        isLoading: true
-      }
+        isLoading: true,
+      };
     }
     case 'LOGIN_REJECTED': {
       return {
         ...state,
         isLoading: false,
         isError: true,
-        alertMsg: 'REJECTED'
-      }
+        alertMsg: 'REJECTED',
+      };
     }
     case 'LOGIN_FULFILLED': {
       return {
         ...state,
         isLoading: false,
         isError: false,
-        isLogin: true,
+        isLogin: action.payload.data.success,
         token: action.payload.data.token,
-        alertMsg: 'SUCCESS'
-      }
+        alertMsg: action.payload.data.message,
+      };
     }
     case 'LOGOUT': {
       return {
@@ -39,11 +39,11 @@ export default (state = initialState, action) => {
         isError: false,
         isLogin: false,
         token: '',
-        alertMsg: 'Logout success'
-      }
+        alertMsg: '',
+      };
     }
     default: {
-      return state
+      return state;
     }
   }
-}
+};

@@ -1,15 +1,22 @@
-import { createStore, applyMiddleware } from 'redux'
-import logger from 'redux-logger'
-import promiseMiddleware from 'redux-promise-middleware'
+import {createStore, applyMiddleware} from 'redux';
+import logger from 'redux-logger';
+import promiseMiddleware from 'redux-promise-middleware';
+import AsyncStorage from '@react-native-community/async-storage';
+import rootReducer from './reducer';
+import {persistStore, persistReducer} from 'redux-persist';
 
-import rootReducer from './reducer'
+const persistConfig = {
+  storage: AsyncStorage,
+  key: 'root',
+};
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(
-    promiseMiddleware,
-    logger
-  )
-)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default store
+export default () => {
+  const store = createStore(
+    persistedReducer,
+    applyMiddleware(promiseMiddleware, logger),
+  );
+  const persistor = persistStore(store);
+  return {store, persistor};
+};

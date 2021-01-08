@@ -7,148 +7,183 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
+  // Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {connect} from 'react-redux';
+import detailActions from '../redux/actions/products';
+import cartActions from '../redux/actions/cart';
+
+import {APP_URL} from '@env';
 
 // imageBackground
 const img = {uri: 'https://reactjs.org/logo-og.png'};
 
-export default class DetailProduct extends Component {
+class DetailProduct extends Component {
+  constructor(props) {
+    super(props);
+    // console.log('props', props);
+    this.state = {
+      id: this.props.route.params.id_item,
+      qty: 1,
+      alertMsg: '',
+    };
+  }
+
+  componentDidMount() {
+    this.props.getDetail(this.state.id);
+  }
+
+  klik = (cek) => {
+    return cek;
+  };
+
+  sendToCart = (id_item) => {
+    const {qty} = this.state;
+    console.log('send', this.props.auth);
+    const sendCart = {
+      id_item,
+      qty,
+    };
+    this.props.addCart(this.props.auth.token, sendCart);
+  };
+
   render() {
+    const {isLoading, isError, data, alertMsg} = this.props.detailProduct;
+    const loadingProduct = this.props.products.isLoading;
+    const errorProduct = this.props.products.isError;
+    const dataProduct = this.props.products.data;
+    // const alertProduct = this.props.products.alertMsg;
+    // console.log(dataProduct);
+    // console.log('data', this.props.detailProduct);
     return (
       <ScrollView style={styles.scrollParent}>
         {/* container */}
         <View style={styles.parent}>
           {/* header */}
-          <View style={styles.header}>
-            <ImageBackground source={img} style={styles.imgHeader} />
-          </View>
+          {!isLoading && !isError && data && (
+            <View style={styles.header}>
+              <ImageBackground
+                source={
+                  data.picture?.length > 0
+                    ? {uri: `${APP_URL}${data.picture}`}
+                    : img
+                }
+                style={styles.imgHeader}
+              />
+            </View>
+          )}
+          {isLoading && !isError && (
+            <View style={styles.loadingImage}>
+              <ActivityIndicator size="large" color="blue" />
+            </View>
+          )}
           <View style={styles.body}>
             {/* ukuran */}
-            <View style={styles.choosing}>
-              <View style={styles.options}>
-                <TouchableOpacity style={styles.btnOptions}>
-                  <Text>Size</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btnOptions}>
-                  <Text>Black</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.fav}>
-                <TouchableOpacity style={styles.btnFav}>
-                  <Icon name="heart-o" size={20} />
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.subtitleProduct}>
-              <View>
-                <Text style={styles.merkProduct}>H&M</Text>
-                <Text style={styles.modelProduct}>Short black dress</Text>
-                <Text>Bintang bintang</Text>
-              </View>
-              <View>
-                <Text style={styles.priceProduct}>$19.0</Text>
-              </View>
-            </View>
-            <View style={styles.descriptProduct}>
-              <Text>
-                Short dress in soft cotton jersey with decorative buttons down
-                the front and wide, frill-trimmed
-              </Text>
-            </View>
+            {!isLoading && !isError && data && (
+              <>
+                <View style={styles.choosing}>
+                  <View style={styles.options}>
+                    <TouchableOpacity style={styles.btnOptions}>
+                      <Text>Size</Text>
+                      <Icon name="angle-down" size={15} color="black" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btnOptions}>
+                      <Text>{data.color}</Text>
+                      <Icon name="angle-down" size={15} color="black" />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.fav}>
+                    <TouchableOpacity style={styles.btnFav}>
+                      <Icon name="heart-o" size={20} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={styles.subtitleProduct}>
+                  <View>
+                    <Text style={styles.merkProduct}>{data.name}</Text>
+                    <Text style={styles.modelProduct}>{data.category}</Text>
+                    <View style={styles.viewStar}>
+                      <Icon name="star" size={15} />
+                      <Icon name="star" size={15} />
+                      <Icon name="star" size={15} />
+                      <Icon name="star" size={15} />
+                    </View>
+                  </View>
+                  <View>
+                    <Text
+                      style={styles.priceProduct}>{`Rp ${data.price}`}</Text>
+                  </View>
+                </View>
+                <View style={styles.descriptProduct}>
+                  <Text style={styles.txtDescription}>{data.description}</Text>
+                </View>
+              </>
+            )}
             <View style={styles.groupBtnInfo}>
               <TouchableOpacity style={styles.btnInfo}>
                 <Text>Shipping Info</Text>
-                <Text> > </Text>
+                <Icon name="chevron-right" />
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.btnInfo}>
                 <Text>Support</Text>
-                <Text> > </Text>
+                <Icon name="chevron-right" />
               </TouchableOpacity>
             </View>
             <View style={styles.textList}>
               <Text style={styles.alsoLike}>You can also like this</Text>
-              <Text style={styles.smallText}>12 items</Text>
+              <Text style={styles.smallText}>
+                {this.props.products.data?.length > 0
+                  ? this.props.products.data.length
+                  : 0}{' '}
+                items
+              </Text>
             </View>
             <ScrollView style={styles.scrollListProduct} horizontal>
-              <TouchableOpacity style={styles.card}>
-                <View>
-                  <Image source={img} style={styles.imgListProduct} />
-                </View>
-                <View>
-                  <Text>Bintang</Text>
-                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                  <Text style={styles.themeProduct}>Evening Dress</Text>
-                  <View style={styles.prices}>
-                    <Text style={styles.discounded}>15$</Text>
-                    <Text style={styles.discount}>12$</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.card}>
-                <View>
-                  <Image source={img} style={styles.imgListProduct} />
-                </View>
-                <View>
-                  <Text>Bintang</Text>
-                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                  <Text style={styles.themeProduct}>Evening Dress</Text>
-                  <View style={styles.prices}>
-                    <Text style={styles.discounded}>15$</Text>
-                    <Text style={styles.discount}>12$</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.card}>
-                <View>
-                  <Image source={img} style={styles.imgListProduct} />
-                </View>
-                <View>
-                  <Text>Bintang</Text>
-                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                  <Text style={styles.themeProduct}>Evening Dress</Text>
-                  <View style={styles.prices}>
-                    <Text style={styles.discounded}>15$</Text>
-                    <Text style={styles.discount}>12$</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.card}>
-                <View>
-                  <Image source={img} style={styles.imgListProduct} />
-                </View>
-                <View>
-                  <Text>Bintang</Text>
-                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                  <Text style={styles.themeProduct}>Evening Dress</Text>
-                  <View style={styles.prices}>
-                    <Text style={styles.discounded}>15$</Text>
-                    <Text style={styles.discount}>12$</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.card}>
-                <View>
-                  <Image source={img} style={styles.imgListProduct} />
-                </View>
-                <View>
-                  <Text>Bintang</Text>
-                  <Text style={styles.createdProduct}>Doroty Perkins</Text>
-                  <Text style={styles.themeProduct}>Evening Dress</Text>
-                  <View style={styles.prices}>
-                    <Text style={styles.discounded}>15$</Text>
-                    <Text style={styles.discount}>12$</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
+              {!loadingProduct &&
+                !errorProduct &&
+                dataProduct &&
+                dataProduct.map((o) => (
+                  <TouchableOpacity
+                    style={styles.card}
+                    key={o.id_item}
+                    onPress={() => this.klik(o.id_item)}>
+                    <View>
+                      <Image
+                        source={
+                          o.picture?.length > 0
+                            ? {uri: `${APP_URL}${o.picture}`}
+                            : {
+                                uri:
+                                  'https://reactnative.dev/img/tiny_logo.png',
+                              }
+                        }
+                        style={styles.imgListProduct}
+                      />
+                    </View>
+                    <View>
+                      <View style={styles.viewStar}>
+                        <Icon name="star" size={15} />
+                        <Icon name="star" size={15} />
+                        <Icon name="star" size={15} />
+                        <Icon name="star" size={15} />
+                      </View>
+                      <Text style={styles.createdProduct}>{o.name}</Text>
+                      <Text style={styles.themeProduct}>{o.category}</Text>
+                      <View style={styles.prices}>
+                        <Text style={styles.discounded}>{`Rp ${o.price}`}</Text>
+                        <Text style={styles.discount}>{`Rp ${o.price}`}</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                ))}
             </ScrollView>
             <View style={styles.footer}>
-              <TouchableOpacity style={styles.btnFooter}>
+              <TouchableOpacity
+                style={styles.btnFooter}
+                onPress={() => this.sendToCart(this.state.id)}>
                 <Text style={styles.addCart}>ADD TO CART</Text>
               </TouchableOpacity>
             </View>
@@ -162,6 +197,7 @@ export default class DetailProduct extends Component {
 const styles = StyleSheet.create({
   addCart: {
     color: 'white',
+    fontSize: 14,
   },
   alsoLike: {
     fontSize: 20,
@@ -179,14 +215,16 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     width: 50,
+    elevation: 2,
   },
   btnFooter: {
     alignItems: 'center',
-    backgroundColor: 'gray',
+    backgroundColor: '#DB3022',
     borderRadius: 100,
-    height: 50,
+    height: 48,
     justifyContent: 'center',
     marginHorizontal: 10,
+    elevation: 3,
   },
   btnInfo: {
     alignItems: 'center',
@@ -198,11 +236,13 @@ const styles = StyleSheet.create({
   btnOptions: {
     alignItems: 'center',
     backgroundColor: 'ghostwhite',
-    borderRadius: 5,
-    borderWidth: 1,
-    height: 50,
-    justifyContent: 'center',
-    width: 140,
+    borderRadius: 10,
+    borderWidth: 0.5,
+    height: 40,
+    justifyContent: 'space-around',
+    width: 137,
+    flexDirection: 'row',
+    elevation: 3,
   },
   card: {
     // borderWidth: 1,
@@ -222,6 +262,11 @@ const styles = StyleSheet.create({
   },
   descriptProduct: {
     marginVertical: 10,
+  },
+  txtDescription: {
+    color: 'grey',
+    fontSize: 14,
+    lineHeight: 21,
   },
   discounded: {
     color: 'gray',
@@ -267,7 +312,7 @@ const styles = StyleSheet.create({
   },
   modelProduct: {
     color: 'gray',
-    fontSize: 12,
+    fontSize: 15,
   },
   options: {
     flexDirection: 'row',
@@ -286,7 +331,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   prices: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
   },
   scrollListProduct: {
     marginHorizontal: 10,
@@ -317,4 +362,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  viewStar: {
+    flexDirection: 'row',
+    marginVertical: 10,
+  },
+  loadingImage: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  products: state.products,
+  detailProduct: state.detailProduct,
+  addCartState: state.addCart,
+});
+
+const mapDispatchToProps = {
+  getDetail: detailActions.getDetailProduct,
+  addCart: cartActions.createCart,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailProduct);

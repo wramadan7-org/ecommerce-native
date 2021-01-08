@@ -1,74 +1,143 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 import {
-  View, Text, StyleSheet, TextInput,
-  TouchableOpacity, Alert
-} from 'react-native'
-import {Form} from 'native-base'
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
+import {Formik} from 'formik';
+import * as yup from 'yup';
+
 //import actions
-import authActions from '../redux/actions/auth'
+import authActions from '../redux/actions/auth';
 //import connect
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 
 class Login extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      email: '',
-      password: '',
-      alertMsg: ''
-    }
+      // email: '',
+      // password: '',
+      alertMsg: '',
+    };
   }
 
-  doLogin = (e) => {
-    e.preventDefault()
-    const {email, password, alertMsg} = this.state
-    const data = {
-      email,password
-    }
-    this.props.login(data)
-  }
+  doLogin = (data) => {
+    this.props.login(data);
+  };
 
-  showAlert= () => {
-    const {alertMsg} = this.props.auth
+  showAlert = () => {
+    const {alertMsg, isLogin} = this.props.auth;
     if (alertMsg !== this.state.alertMsg) {
-      this.setState({alertMsg})
-      Alert.alert(alertMsg)
+      this.setState({alertMsg});
+      if (isLogin) {
+        Alert.alert('Success', alertMsg);
+      } else {
+        Alert.alert('Fail', alertMsg);
+      }
     }
+  };
+
+  componentDidMount() {
+    this.props.auth;
   }
 
   componentDidUpdate() {
-    this.showAlert()
+    this.showAlert();
   }
 
-  render () {
+  render() {
+    const loginValidationSchema = yup.object().shape({
+      email: yup
+        .string()
+        .email('Please enter valid email')
+        .required('Email Address is Required'),
+      password: yup
+        .string()
+        .min(8, ({min}) => `Password must be at least ${min} characters`)
+        .required('Password is required'),
+    });
+
+    const {isLoading} = this.props.auth;
+
     return (
       <View style={styles.parent}>
         <View style={styles.wrap}>
+          {isLoading && <ActivityIndicator />}
           <View style={styles.header}>
             <Text style={styles.textHeader}>Login</Text>
           </View>
-          <Form>
-          <View style={styles.form}>
-            <View style={styles.inputGroup}>
-              <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} onChangeText={email => this.setState({email})} placeholder='Email' />
-            </View>
+          <Formik
+            validationSchema={loginValidationSchema}
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            onSubmit={(values) => this.doLogin(values)}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              isValid,
+              touched,
+            }) => (
+              <>
+                <View style={styles.form}>
+                  <View style={styles.inputGroup}>
+                    <Text style={styles.label}>Email</Text>
+                    <TextInput
+                      style={styles.input}
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      value={values.email}
+                      keyboardType="email-address"
+                      placeholder="Email"
+                      autoCapitalize="none"
+                    />
+                    {errors.email && touched.email && (
+                      <Text style={styles.errorText}>{errors.email}</Text>
+                    )}
+                  </View>
 
-            <View style={styles.inputGroup}>
-              <Text style={styles.label}>Password</Text>
-              <TextInput style={styles.input} onChangeText={password => this.setState({password})} placeholder='Password' secureTextEntry />
-            </View>
-          </View>
-          <Text style={styles.link} onPress={() => this.props.navigation.navigate('Forgot')}>Forget your password?</Text>
-          <TouchableOpacity style={styles.btn} onPress={this.doLogin}>
-            <Text style={styles.textBtn}>LOGIN</Text>
-          </TouchableOpacity>
-
-          </Form>
+                  <View style={styles.inputGroup}>
+                    <Text style={styles.label}>Password</Text>
+                    <TextInput
+                      style={styles.input}
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      value={values.password}
+                      placeholder="Password"
+                      autoCapitalize="none"
+                      secureTextEntry
+                    />
+                    {errors.password && touched.password && (
+                      <Text style={styles.errorText}>{errors.password}</Text>
+                    )}
+                  </View>
+                </View>
+                <Text
+                  style={styles.link}
+                  onPress={() => this.props.navigation.navigate('Forgot')}>
+                  Forget your password?
+                </Text>
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={handleSubmit}
+                  disabled={!isValid}>
+                  <Text style={styles.textBtn}>LOGIN</Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
         </View>
       </View>
-    )
+    );
   }
 }
 
@@ -77,11 +146,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'ghostwhite',
     // justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   wrap: {
     justifyContent: 'center',
-    width: '80%'
+    width: '80%',
   },
   header: {
     // alignItems: 'center',
@@ -89,55 +158,56 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontSize: 50,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   inputGroup: {
     marginVertical: 10,
     height: 80,
     padding: 5,
-    // backgroundColor: 'white',
-    borderBottomWidth: 1,
+    backgroundColor: 'white',
     borderRadius: 5,
     justifyContent: 'center',
-    borderBottomColor: 'blue'
-    // elevation: 3
+    elevation: 1,
   },
   label: {
     color: 'gray',
-    fontSize: 13
+    fontSize: 13,
   },
   input: {
     padding: 2,
     marginVertical: 3,
-    fontSize: 16
+    fontSize: 16,
   },
   link: {
     color: 'black',
-    textAlign: 'right'
+    textAlign: 'right',
   },
   btn: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#DB3022',
     height: 45,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,
     marginVertical: 20,
-    elevation: 3
+    elevation: 3,
   },
   textBtn: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
   },
-})
+  errorText: {
+    fontSize: 10,
+    color: 'red',
+  },
+});
 
-const mapStateToProps = state => ({
-  auth: state.auth
-})
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
 const mapDispatchToProps = {
-  login: authActions.doLogin 
-}
+  login: authActions.doLogin,
+};
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
